@@ -6,6 +6,16 @@ use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\SobrenosController;
 use Faker\Guesser\Name;
 
+//outra forma de usar a função redirect, dentro da função de callback da rota
+
+// route::get('/rota2', function(){
+//     return redirect()->route('site.rota1');
+// })->name('site.rota2');
+
+
+//uma forma para usar a função redirect toda vez que cair na rota de origem, será redirecionado para a segunda rota
+// Route::redirect('/rota2', '/rota1');
+
 // Route::get(
 //     '/contato/{nome}/{categoria_id}',
 //     function (
@@ -47,17 +57,10 @@ route::prefix('/app')->group(function () {
     })->name('app.produtos');
 });
 
-Route::get('/rota1', function() {
- echo "Rota1";
-})->name('site.rota1');
+Route::get('/teste/{p1}/{p2}', 'TesteController@teste')->name('teste');
 
 
-//outra forma de usar a função redirect, dentro da função de callback da rota
-
-route::get('/rota2', function(){
-    return redirect()->route('site.rota1');
-})->name('site.rota2');
-
-
-//uma forma para usar a função redirect toda vez que cair na rota de origem, será redirecionado para a segunda rota
-Route::redirect('/rota2', '/rota1');
+//função de fallback é um recurso utilizado quando o usuário acessa um link ou uma rota inexistente
+Route::fallback(function (){
+    echo 'A rota acessada não existe. <a href="'.route('site.index').'">Clique aqui</a> para ir para pagina principal.';
+});

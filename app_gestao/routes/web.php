@@ -1,10 +1,12 @@
 <?php
 
+use Faker\Guesser\Name;
 use App\Http\Controllers\ContatoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\SobrenosController;
-use Faker\Guesser\Name;
+use App\Http\Controllers\TesteController;
+
 
 //outra forma de usar a função redirect, dentro da função de callback da rota
 
@@ -57,10 +59,9 @@ route::prefix('/app')->group(function () {
     })->name('app.produtos');
 });
 
-Route::get('/teste/{p1}/{p2}', 'TesteController@teste')->name('teste');
-
-
 //função de fallback é um recurso utilizado quando o usuário acessa um link ou uma rota inexistente
 Route::fallback(function (){
     echo 'A rota acessada não existe. <a href="'.route('site.index').'">Clique aqui</a> para ir para pagina principal.';
 });
+
+Route::get('/teste/{p1}/{p2}', [TesteController::class, 'teste'])->name('teste');

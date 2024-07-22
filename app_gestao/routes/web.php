@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\SobrenosController;
 use App\Http\Controllers\TesteController;
+use App\Http\Controllers\FornecedoresController;
 
 
 //outra forma de usar a função redirect, dentro da função de callback da rota
@@ -40,7 +41,7 @@ o parametro, nesse caso sendo "principal"
 // Route::get('/', "PrincipalController@principal");
 Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
 Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
-Route::get('/sobrenos', [SobrenosController::class, 'Sobrenos'])->name('site.sobrenos');
+Route::get('/sobrenos', [SobrenosController::class, 'sobrenos'])->name('site.sobrenos');
 Route::get('/login', function () {
     return 'Login';
 })->name('site.login');
@@ -48,20 +49,22 @@ Route::get('/login', function () {
 
 //prefix serve para agrupar varias rotas definindo um caminho maior por exemplo, "app/clientes"
 route::prefix('/app')->group(function () {
+
     Route::get('/clientes', function () {
         return 'Clientes';
     })->name('app.clientes');
-    Route::get('/fornecedores', function () {
-        return 'Fornecedores';
-    })->name('app.fornecedores');
+
+    Route::get('/fornecedores', [FornecedoresController::class, 'fornecedores'])
+        ->name('app.fornecedores');
+
     Route::get('/produtos', function () {
         return 'Produtos';
     })->name('app.produtos');
 });
 
 //função de fallback é um recurso utilizado quando o usuário acessa um link ou uma rota inexistente
-Route::fallback(function (){
-    echo 'A rota acessada não existe. <a href="'.route('site.index').'">Clique aqui</a> para ir para pagina principal.';
+Route::fallback(function () {
+    echo 'A rota acessada não existe. <a href="' . route('site.index') . '">Clique aqui</a> para ir para pagina principal.';
 });
 
 

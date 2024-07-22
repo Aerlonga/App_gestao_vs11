@@ -24,6 +24,14 @@
 
     {{-- @dd($fornecedores) '@dd' serve para exibir o array no blade.php --}}
 
+    {{-- @empty retorna true se a varivel estiver vazia, entende-se vazia por, colocando uma mensagem como "vazio":
+        '', 0, 0.0, '0', null, false, array (vazio), $var sem valor definido
+     --}}
+
+    {{-- o isset é usado para "ignorar" quando uma variavel ou paremetro não existe, 
+    continuando a executar caso não exista, ou seja, checa para ver se existe a variavel --}}
+
+
     {{-- @if (count($fornecedores) > 0 && count($fornecedores) <= 5)
         <h3>Existem alguns fornecedores cadastrados</h3>
     @elseif (count($fornecedores) > 5)
@@ -32,14 +40,12 @@
         <h3>Ainda não tem fornecedores cadastrados</h3>
     @endif --}}
 
+
     {{-- @unless ($fornecedores[0]['status'] === 'S') <!-- no if se o retorno da condição for verdadeiro ele executa, ja no unless se o retorno da condição for false ele executa -->
         Fornecedor inativo
     @endunless --}}
 
-
-
-    {{-- o isset é usado para "ignorar" quando uma variavel ou paremetro não existe, continuando a executar caso não exista, ou seja, checa para ver se existe a variavel --}}
-    @isset($fornecedores)
+    {{-- @isset($fornecedores)
         Fornecedor: {{ $fornecedores[0]['nome'] }}
         <br>
         Status: {{ $fornecedores[0]['status'] }}
@@ -48,7 +54,24 @@
             CNPJ: {{ $fornecedores[0]['cnpj'] }}
         @endisset
         <br>
+    @endisset --}}
+
+    {{-- condição ? se verdade: se falso;
+    condição ? se verdade: (condição ? se verdade : se falso);
+
+    $msg = isset($fornecedores[1]['cnpj']) ? 'CNPJ informado' : 'CNPJ não informado';
+    echo $msg; --}}
+
+    {{-- Utilizando o '??' dentro de um isset, pode-se utilizar um valor defalut, podendo ser em branco ou com uma mensagem --}}
+    
+    @isset($fornecedores)
+        Fornecedor: {{ $fornecedores[1]['nome'] }}
+        <br>
+        Status: {{ $fornecedores[1]['status'] }}
+        <br>
+        CNPJ: {{ $fornecedores[1]['cnpj'] ?? 'Dado não preenchido' }}
     @endisset
+
 </body>
 
 </html>

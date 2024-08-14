@@ -48,7 +48,7 @@ Route::get('/login', function () {
 
 
 //prefix serve para agrupar varias rotas definindo um caminho maior por exemplo, "app/clientes"
-route::prefix('/app')->group(function () {
+route::prefix('/app')->group(function () { 
 
     Route::get('/clientes', function () {
         return 'Clientes';

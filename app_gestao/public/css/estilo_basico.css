@@ -45,6 +45,10 @@ button {
     border: solid 1px #333;
 }
 
+.borda-roxa {
+    border: solid 1px #750385b0;
+}
+
 button {
     background-color: #7ab829;
     cursor: pointer;
